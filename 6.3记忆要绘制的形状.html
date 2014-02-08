@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>6.2创建循环动画</title>
+		<script type='text/javascript' src='jquery-1.8.3.min.js'></script>
+	</head>
+	<body>
+		<canvas id='myCanvas' width='500' height='500' ></canvas>
+		<div>
+			<button id='startAnimation'>开始</button>
+			<button id='stopAnimation'>结束</button>
+		</div>
+		<script type='text/javascript'>
+			var canvas = $('#myCanvas');
+			var context = canvas[0].getContext('2d');
+
+			var canvasWidth = canvas.width();
+			var canvasHeight = canvas.height();
+
+			var playAnimation = true;
+			var startButton = $('#startAnimation');
+			var stopButton = $('#stopAnimation');
+
+			startButton.hide();
+			startButton.click(function  () {
+				$(this).hide();
+				stopButton.show();
+
+				playAnimation = true;
+				animate();
+
+			})
+
+			stopButton.click(function  () {
+				$(this).hide();
+				startButton.show();
+
+				playAnimation = false;
+
+			})
+
+			var Shape = function  (x,y) {
+				this.x = x;
+				this.y = y;
+			}
+			var shapes = new Array();
+
+			shapes.push(new Shape(50,50));
+			shapes.push(new Shape(100,100));
+			shapes.push(new Shape(150,150));
+
+			
+			function animate () {
+				
+				context.clearRect(0,0,canvasWidth,canvasHeight);
+				
+				var shapesLehgth = shapes.length;
+				for (var i = 0; i < shapesLehgth; i++) {
+					var tmpShape = shapes[i];
+					tmpShape.x+=Math.random()*4-2;
+					tmpShape.y+=Math.random()*4-2;
+					context.fillRect(tmpShape.x,tmpShape.y,20,20)
+				};
+				if(playAnimation){
+					setTimeout(animate,33)
+				}
+			}
+			animate();
+			
+			
+
+			
+			
+				
+
+			
+
+			
+		</script>
+	</body>
+</html>

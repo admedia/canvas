@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>6.2创建循环动画</title>
+		<script type='text/javascript' src='jquery-1.8.3.min.js'></script>
+	</head>
+	<body>
+		<canvas id='myCanvas' width='500' height='500' ></canvas>
+		<div>
+			<button id='startAnimation'>开始</button>
+			<button id='stopAnimation'>结束</button>
+		</div>
+		<script type='text/javascript'>
+			var canvas = $('#myCanvas');
+			var context = canvas[0].getContext('2d');
+
+			var canvasWidth = canvas.width();
+			var canvasHeight = canvas.height();
+
+			var playAnimation = true;
+			var startButton = $('#startAnimation');
+			var stopButton = $('#stopAnimation');
+
+			startButton.hide();
+			startButton.click(function  () {
+				$(this).hide();
+				stopButton.show();
+
+				playAnimation = true;
+				animate();
+
+			})
+
+			stopButton.click(function  () {
+				$(this).hide();
+				startButton.show();
+
+				playAnimation = false;
+
+			})
+
+			var x = 0;
+			function animate () {
+				x++;
+				context.clearRect(0,0,canvasWidth,canvasHeight);
+				context.fillRect(x,250,10,10);
+				if(playAnimation){
+					setTimeout(animate,33)
+				}
+			}
+			animate();
+			/*var imageData = context.createImageData(500,500);
+			var pixels = imageData.data;*/
+			
+
+			
+			
+				
+
+			
+
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>5.5 从0绘制图像</title>
+		<script type='text/javascript' src='jquery-1.8.3.min.js'></script>
+	</head>
+	<body>
+		<canvas id='myCanvas' width='500' height='500' ></canvas>
+		<script type='text/javascript'>
+			var canvas = $('#myCanvas');
+			var context = canvas[0].getContext('2d');
+			
+			var imageData = context.createImageData(500,500);
+			var pixels = imageData.data;
+			
+			//马赛克的个数
+			var numTileRows = 4;
+			var numTileCols = 4;
+
+			//每个块的尺寸
+			var tileWidth = imageData.width/numTileCols;
+			var tileHeight = imageData.height/numTileRows;
+
+			
+
+			function redraw() {
+				context.clearRect(0,0,500,500);
+				for (var r = 0; r < numTileRows; r++) {
+					for (var c = 0; c < numTileCols; c++) {
+						//为每个块设置像素的颜色值
+						var red = Math.floor(Math.random()*255);
+						var green = Math.floor(Math.random()*255);
+						var blue = Math.floor(Math.random()*255);
+
+						for (var tr = 0; tr < tileHeight; tr++) {
+							for (var tc = 0; tc < tileWidth; tc++) {
+								var trueX = (c*tileWidth)+tc;
+								var trueY = (r*tileHeight)+tr;
+								var pos = (trueY*(imageData.width*4))+(trueX*4);
+
+								pixels[pos] = red;
+								pixels[pos+1] = green;
+								pixels[pos+2] = blue;
+								pixels[pos+3] = 255;
+
+							}
+						}
+					}
+
+
+					context.putImageData(imageData,0,0);
+				}
+
+			}
+		var t =	setInterval(redraw,3000);
+			
+
+			
+
+				
+			
+				
+
+			
+
+			
+		</script>
+	</body>
+</html>

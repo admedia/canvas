@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>6.2创建循环动画</title>
+		<script type='text/javascript' src='jquery-1.8.3.min.js'></script>
+	</head>
+	<body>
+		<canvas id='myCanvas' width='500' height='500' ></canvas>
+		<div>
+			<button id='startAnimation'>开始</button>
+			<button id='stopAnimation'>结束</button>
+		</div>
+		<script type='text/javascript'>
+			var canvas = $('#myCanvas');
+			var context = canvas[0].getContext('2d');
+
+			var canvasWidth = canvas.width();
+			var canvasHeight = canvas.height();
+
+			var playAnimation = true;
+			var startButton = $('#startAnimation');
+			var stopButton = $('#stopAnimation');
+
+			startButton.hide();
+			startButton.click(function  () {
+				$(this).hide();
+				stopButton.show();
+
+				playAnimation = true;
+				animate();
+
+			})
+
+			stopButton.click(function  () {
+				$(this).hide();
+				startButton.show();
+
+				playAnimation = false;
+
+			})
+
+			var Shape = function  (x,y,width,height) {
+				this.x = x;
+				this.y = y;
+				this.width = width;
+				this.height = height;
+
+				this.radius = Math.random()*30;
+				this.angle = 0;
+			}
+			var shapes = new Array();
+
+			for (var i = 0; i < 10; i++) {
+				var x = Math.random()*250;
+				var y = Math.random()*250;
+				var width = height = Math.random()*30;
+				shapes.push(new Shape(x,y,width,height))
+			};
+
+			
+			function animate () {
+				
+				context.clearRect(0,0,canvasWidth,canvasHeight);
+				
+				var shapesLength = shapes.length;
+				for (var i = 0; i < shapesLength; i++) {
+					var tmpShape = shapes[i];
+					var x = tmpShape.x+(tmpShape.radius*Math.cos(tmpShape.angle*(Math.PI/180)));
+					var y = tmpShape.y+(tmpShape.radius*Math.sin(tmpShape.angle*(Math.PI/180)));
+
+					tmpShape.angle+=5;
+					if(tmpShape.angle>360){tmpShape.angle = 0};
+					context.fillRect(x,y,tmpShape.width,tmpShape.height)
+				};
+				if(playAnimation){
+					setTimeout(animate,33)
+				}
+			}
+			animate();
+			
+			
+
+			
+			
+				
+
+			
+
+			
+		</script>
+	</body>
+</html>

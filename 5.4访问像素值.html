@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>第4章 canvas高级功能</title>
+		<script type='text/javascript' src='jquery-1.8.3.min.js'></script>
+	</head>
+	<body>
+		<canvas id='myCanvas' width='500' height='500' ></canvas>
+		<script type='text/javascript'>
+			var canvas = $('#myCanvas');
+			var context = canvas[0].getContext('2d');
+			
+			/*context.shadowBlur = 20;
+			context.shadowColor = 'red';*/
+
+			var img = new Image();
+			img.src = 'xbox.png';
+			$(img).load(function () {
+				context.drawImage(img,100,100,256,256)
+			})
+			 /*获取像素索引*/
+			var imageData = context.getImageData(100,100,256,256);
+			var width = imageData.width;
+			var x = 100;
+			var y = 100;
+			var pixred = ((y-1)*(width*4))+((x-1)*4);
+			var pixgreen = pixred+1;
+			var pixblue = pixred+2;
+			var pixalpha = pixred+3;
+
+
+			console.log(pixred)
+
+				
+			
+				
+
+			
+
+			
+		</script>
+	</body>
+</html>

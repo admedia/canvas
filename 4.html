@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>第4章 canvas高级功能</title>
+		<script type='text/javascript' src='jquery-1.8.3.min.js'></script>
+	</head>
+	<body>
+		<canvas id='myCanvas' width='500' height='500' ></canvas>
+		<script type='text/javascript'>
+			var canvas = $('#myCanvas');
+			var context = canvas[0].getContext('2d');
+			canvas.css('border','1px red solid')
+
+			context.fillStyle = 'rgb(255,0,0)';
+			context.save();  //保存画布↑↑↑↑
+			context.fillRect(50,50,100,100);  // 红色正方形
+
+			context.fillStyle = 'rgb(0,0,255)';
+			context.save();
+			context.fillRect(200,50,100,100);  // 蓝色正方形
+
+			context.restore();  //恢复最近保存的状态 → context.fillStyle = 'rgb(0,0,255)';
+			context.fillRect(350,50,100,100);  // 蓝色正方形  栈内存后进先出的顺序
+
+			context.restore();  //依次恢复第二近保存的状态 → context.fillStyle = 'rgb(255,0,0)';
+			context.fillRect(50,200,100,100);  
+
+			
+			
+		</script>
+	</body>
+</html>

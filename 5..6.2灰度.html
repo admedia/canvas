@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>5.6.1颜色翻转</title>
+		<script type='text/javascript' src='jquery-1.8.3.min.js'></script>
+	</head>
+	<body>
+		<canvas id='myCanvas' width='500' height='500' ></canvas>
+		<script type='text/javascript'>
+			var canvas = $('#myCanvas');
+			var context = canvas[0].getContext('2d');
+			
+			var image = new Image();
+			image.src = 'xbox.png';
+			$(image).load(function  () {
+				context.drawImage(image,0,0);
+
+				var imageData = context.getImageData(0,0,500,500);
+				var pixels = imageData.data;
+				var numPixels = pixels.length;
+
+				context.clearRect(0,0,canvas.width(),canvas.height());
+				for (var i = 0; i < numPixels; i++) {
+					var average = (pixels[i*4]+pixels[i*4+1]+pixels[i*4+2]);
+					pixels[i*4] = average;
+					pixels[i*4+1] = average;
+					pixels[i*4+2] = average;
+				};
+				context.putImageData(imageData,0,0)
+			})
+
+			
+
+			
+			
+
+			
+
+				
+			
+				
+
+			
+
+			
+		</script>
+	</body>
+</html>
